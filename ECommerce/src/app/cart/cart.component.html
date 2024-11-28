@@ -1,0 +1,22 @@
+<!-- src/app/cart/cart.component.html -->
+<div class="cart">
+    <h2>Votre Panier</h2>
+    
+    <div *ngFor="let item of cart">
+      <div>
+        <h4>{{ item.product.name }}</h4>
+        <p>{{ item.product.description }}</p>
+        <p>Prix: {{ item.product.price }} €</p>
+        <p>
+          Quantité: 
+          <input type="number" [(ngModel)]="item.quantity" (change)="updateQuantity(item.product.id, item.quantity)" min="1"/>
+        </p>
+        <button (click)="removeFromCart(item.product.id)">Supprimer</button>
+      </div>
+    </div>
+  
+    <h3>Total: {{ totalPrice }} €</h3>
+  
+    <button (click)="checkout()">Valider la commande</button>
+  </div>
+  
