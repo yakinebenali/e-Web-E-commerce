@@ -1,16 +1,15 @@
 <div class="login-container">
-    <h2>Connexion Client</h2>
-    <form (submit)="login(); $event.preventDefault()">
-      <div>
-        <label for="username">Nom d'utilisateur:</label>
-        <input id="username" [(ngModel)]="username" name="username" type="text" required />
-      </div>
-      <div>
-        <label for="password">Mot de passe:</label>
-        <input id="password" [(ngModel)]="password" name="password" type="password" required />
-      </div>
-      <button type="submit">Se connecter</button>
-    </form>
-    <p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
-  </div>
-  
+  <h2>Connexion Client</h2>
+  <form (submit)="onLogin(); $event.preventDefault()">
+    <div>
+      <label for="username">Nom d'utilisateur:</label>
+      <input id="username" [(ngModel)]="username" name="username" type="text" required />
+    </div>
+    <div>
+      <label for="password">Mot de passe:</label>
+      <input id="password" [(ngModel)]="password" name="password" type="password" required />
+    </div>
+    <button type="submit">Se connecter</button>
+  </form>
+  <p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
+</div>
