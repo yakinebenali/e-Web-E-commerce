@@ -1,6 +1,6 @@
-// src/app/client-auth/client-auth.component.ts
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-auth',
@@ -10,16 +10,20 @@ import { AuthService } from '../auth.service';
 export class ClientAuthComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string = ''; // Variable pour afficher le message d'erreur
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  onLogin() {
-    // Vérifiez les informations d'identification ici (authentification)
+  // Méthode pour gérer la soumission du formulaire de connexion
+  onLogin(): void {
+    console.log('Nom d\'utilisateur:', this.username);
+    console.log('Mot de passe:', this.password);
+  
     if (this.authService.login(this.username, this.password)) {
-      // Rediriger vers le product-catalog après une connexion réussie
       this.router.navigate(['/product-catalog']);
     } else {
-      alert('Identifiants invalides');
+      this.errorMessage = 'Identifiants invalides';
     }
   }
+  
 }
