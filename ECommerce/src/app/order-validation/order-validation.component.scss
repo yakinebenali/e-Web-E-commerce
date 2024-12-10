@@ -1,0 +1,32 @@
+.container {
+    margin-top: 30px;
+  }
+  
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  h5 {
+    font-weight: bold;
+  }
+  
+  h6 {
+    font-weight: normal;
+  }
+  
+  button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    margin-top: 20px;
+  }
+  

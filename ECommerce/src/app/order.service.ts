@@ -1,24 +1,35 @@
-// src/app/order.service.ts
 import { Injectable } from '@angular/core';
-import { Product } from './product.model';
+import { Order } from './order.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
+  private orders: Order[] = [];  // Liste des commandes
+
   constructor() {}
 
-  validateOrder(cart: { product: Product; quantity: number }[]) {
-    // Simuler la validation de la commande (par exemple, envoyer au serveur)
-    const totalPrice = cart.reduce(
-      (total, item) => total + item.product.price * item.quantity,
-      0
-    );
+  // Ajouter une commande
+  addOrder(order: Order): void {
+    this.orders.push(order);
+  }
 
-    // Vous pouvez étendre cette logique pour appeler une API backend.
-    console.log('Commande validée', cart);
-    console.log('Total:', totalPrice);
+  // Récupérer toutes les commandes
+  getOrders(): Order[] {
+    return this.orders;
+  }
 
-    return { success: true, total: totalPrice };
+  // Récupérer la dernière commande, si disponible
+  getLatestOrder(): Order | null {
+    return this.orders.length > 0 ? this.orders[this.orders.length - 1] : null;
+  }
+
+  // Mettre à jour une commande existante
+  updateOrder(updatedOrder: Order): void {
+    const index = this.orders.findIndex(order => order.id === updatedOrder.id);
+    if (index !== -1) {
+      // Mise à jour de la commande dans la liste
+      this.orders[index] = updatedOrder;
+    }
   }
 }

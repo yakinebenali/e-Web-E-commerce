@@ -1,51 +1,62 @@
-// src/app/cart.service.ts
 import { Injectable } from '@angular/core';
-import { Product } from './/product.model'; // Assurez-vous d'importer le modèle Product
+import { Product } from './product.model';
 
 @Injectable({
-  providedIn: 'root' // Cela rend le service accessible à toute l'application
+  providedIn: 'root',
 })
 export class CartService {
-  private cart: { product: Product, quantity: number }[] = []; // Le panier est un tableau d'objets contenant un produit et sa quantité
+  private cart: { product: Product; quantity: number }[] = [];
 
   constructor() {}
 
-  // Retourner les produits dans le panier
-  getCart(): { product: Product, quantity: number }[] {
-    return this.cart;
-  }
-
   // Ajouter un produit au panier
   addToCart(product: Product): void {
-    // Vérifier si le produit existe déjà dans le panier
     const existingProduct = this.cart.find(item => item.product.id === product.id);
-    
     if (existingProduct) {
-      // Si le produit existe, augmenter la quantité
-      existingProduct.quantity += 1;
+      // Si le produit existe déjà dans le panier, augmenter la quantité
+      existingProduct.quantity++;
     } else {
       // Sinon, ajouter le produit au panier avec une quantité de 1
       this.cart.push({ product, quantity: 1 });
     }
   }
 
-  // Supprimer un produit du panier
-  removeFromCart(product: Product): void {
-    // Filtrer les éléments dont l'id ne correspond pas à celui du produit à supprimer
-    this.cart = this.cart.filter(item => item.product.id !== product.id);
+  // Obtenir tous les produits du panier
+  getCart() {
+    return this.cart;
   }
 
-  // Mettre à jour la quantité d'un produit dans le panier
+  // Modifier la quantité d'un produit dans le panier
   updateQuantity(product: Product, quantity: number): void {
-    const item = this.cart.find(item => item.product.id === product.id);
-    
-    if (item) {
-      item.quantity = quantity;
+    // Vérifier si la quantité est valide
+    if (quantity <= 0) {
+      console.error('La quantité doit être positive et non nulle.');
+      return; // Empêcher la mise à zéro ou la quantité négative
+    }
+
+    const existingProduct = this.cart.find(item => item.product.id === product.id);
+    if (existingProduct) {
+      existingProduct.quantity = quantity;
     }
   }
 
-  // Calculer le prix total du panier
-  getTotalPrice(): number {
-    return this.cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+  // Supprimer un produit du panier
+  removeFromCart(product: Product): void {
+    this.cart = this.cart.filter(item => item.product.id !== product.id);
+  }
+
+  // Calculer le total du panier
+  getTotal(): number {
+    return this.cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+  }
+
+  // Vérifier si le panier est vide
+  isEmpty(): boolean {
+    return this.cart.length === 0;
+  }
+
+  // Vider le panier
+  clearCart(): void {
+    this.cart = [];
   }
 }

@@ -1,1 +1,35 @@
-<p>order-validation works!</p>
+<div class="container mt-4">
+    <h2 class="text-center">Validation de Commande</h2>
+
+    <div *ngIf="!order" class="alert alert-danger">
+      Aucune commande trouvée.
+    </div>
+
+    <div *ngIf="order" class="card shadow-lg mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Résumé de la Commande #{{ order.id }}</h5>
+
+        <p><strong>Nom du client :</strong> {{ order.customerName }}</p>
+        <p><strong>Email :</strong> {{ order.customerEmail }}</p>
+        <p><strong>Date de commande :</strong> {{ order.date }}</p>
+
+        <h6>Articles :</h6>
+        <ul>
+          <li *ngFor="let item of order.items">
+            {{ item.productName }} - {{ item.quantity }} x {{ item.price }} €
+          </li>
+        </ul>
+
+        <p><strong>Total :</strong> {{ order.total }} €</p>
+        <p><strong>Status actuel :</strong> <span>{{ order.status }}</span></p>
+
+        <button 
+          class="btn btn-success" 
+          (click)="validateOrder()" 
+          [disabled]="isProcessing">
+          <span *ngIf="isProcessing">Traitement...</span>
+          <span *ngIf="!isProcessing">Valider la commande</span>
+        </button>
+      </div>
+    </div>
+</div>

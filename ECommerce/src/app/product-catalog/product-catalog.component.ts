@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
 import { CartService } from '../cart.service';
+import { Router } from '@angular/router'; // Importer le Router
 
 @Component({
   selector: 'app-product-catalog',
@@ -10,17 +11,20 @@ import { CartService } from '../cart.service';
 })
 export class ProductCatalogComponent implements OnInit {
   products: Product[] = [];
-  filteredProducts: Product[] = []; // Propriété pour les produits filtrés
-  searchQuery: string = ''; // Propriété pour la recherche
+  filteredProducts: Product[] = [];
+  searchQuery: string = '';
 
-  constructor(private productService: ProductService, private cartService: CartService) {}
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService,
+    private router: Router // Injecter le Router
+  ) {}
 
   ngOnInit(): void {
     this.products = this.productService.getProducts();
-    this.filteredProducts = this.products; // Initialisation de filteredProducts
+    this.filteredProducts = this.products;
   }
 
-  // Méthode pour filtrer les produits en fonction de searchQuery
   filterProducts(): void {
     if (this.searchQuery) {
       this.filteredProducts = this.products.filter(product =>
@@ -28,10 +32,13 @@ export class ProductCatalogComponent implements OnInit {
         product.category.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {
-      this.filteredProducts = this.products;}
+      this.filteredProducts = this.products;
+    }
   }
 
-  addToCart(product: Product): void {
-    this.cartService.addToCart(product);
+  // Nouvelle méthode pour ajouter au panier et rediriger
+  addToCartAndNavigate(product: Product): void {
+    this.cartService.addToCart(product); // Ajouter le produit au panier
+    this.router.navigate(['/cart']); // Rediriger vers la page du panier
   }
 }

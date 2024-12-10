@@ -1,8 +1,7 @@
-// src/app/cart/cart.component.ts
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../cart.service';
 import { Product } from '../product.model';
-import { ProductService } from '../product.service';
-import { OrderService } from '../order.service';
+import { Router } from '@angular/router';  // Importer le Router
 
 @Component({
   selector: 'app-cart',
@@ -10,64 +9,44 @@ import { OrderService } from '../order.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cart: { product: Product; quantity: number }[] = [];
-  totalPrice: number = 0;
+  cartItems: { product: Product, quantity: number }[] = [];
+  total: number = 0;
 
-  constructor(
-    private productService: ProductService,
-    private orderService: OrderService
-  ) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
-  ngOnInit() {
-    // Simuler la récupération des produits dans le panier depuis le service
-    this.cart = this.productService.getCart();
-    this.updateTotalPrice();
+  ngOnInit(): void {
+    this.loadCart();  // Charger les données du panier lors de l'initialisation du composant
   }
 
-  addToCart(product: Product) {
-    // Ajouter un produit au panier ou augmenter la quantité si déjà présent
-    const cartItem = this.cart.find(item => item.product.id === product.id);
-    if (cartItem) {
-      cartItem.quantity++;
+  loadCart(): void {
+    this.cartItems = this.cartService.getCart();  // Récupérer les articles du panier à partir du service
+    this.total = this.cartService.getTotal();  // Récupérer le total du panier à partir du service
+  }
+
+  updateQuantity(product: Product, quantity: number): void {
+    if (quantity > 0) {
+      this.cartService.updateQuantity(product, quantity);  // Mettre à jour la quantité du produit dans le panier
+      this.loadCart();  // Recharger le panier avec les nouvelles quantités
     } else {
-      this.cart.push({ product, quantity: 1 });
+      alert('La quantité doit être supérieure à zéro.');  // Alerte si la quantité est inférieure ou égale à zéro
     }
-    this.updateTotalPrice();
   }
 
-  removeFromCart(productId: number) {
-    // Supprimer un produit du panier
-    this.cart = this.cart.filter(item => item.product.id !== productId);
-    this.updateTotalPrice();
+  removeFromCart(product: Product): void {
+    this.cartService.removeFromCart(product);  // Supprimer l'article du panier
+    this.loadCart();  // Recharger le panier après la suppression
   }
 
-  updateQuantity(productId: number, quantity: number) {
-    // Modifier la quantité d'un produit dans le panier
-    const cartItem = this.cart.find(item => item.product.id === productId);
-    if (cartItem && quantity > 0) {
-      cartItem.quantity = quantity;
-    }
-    this.updateTotalPrice();
+  isEmpty(): boolean {
+    return this.cartService.isEmpty();  // Vérifier si le panier est vide
   }
 
-  updateTotalPrice() {
-    // Calculer le total du panier
-    this.totalPrice = this.cart.reduce(
-      (total, item) => total + item.product.price * item.quantity,
-      0
-    );
-  }
-
-  checkout() {
-    // Appeler le service de validation de commande
-    const result = this.orderService.validateOrder(this.cart);
-    if (result.success) {
-      alert(`Commande validée. Total: ${result.total} €`);
-      // Réinitialiser le panier après la validation de la commande
-      this.cart = [];
-      this.updateTotalPrice();
+  // Fonction pour valider la commande et rediriger vers la page de validation de la commande
+  validateOrder(): void {
+    if (this.cartItems.length > 0) {
+      this.router.navigate(['/validate-order']);  // Rediriger vers la page de validation de la commande
     } else {
-      alert('Échec de la validation de la commande');
+      alert('Votre panier est vide. Vous devez ajouter des articles pour valider la commande.');
     }
   }
 }
