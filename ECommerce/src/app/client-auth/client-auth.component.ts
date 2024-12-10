@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,10 @@ import { Router } from '@angular/router';
 export class ClientAuthComponent {
   username: string = '';
   password: string = '';
-  errorMessage: string = ''; // Variable pour afficher le message d'erreur
+  errorMessage: string = ''; 
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Méthode pour gérer la soumission du formulaire de connexion
   onLogin(): void {
     console.log('Nom d\'utilisateur:', this.username);
     console.log('Mot de passe:', this.password);

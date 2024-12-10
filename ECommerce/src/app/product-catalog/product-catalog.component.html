@@ -1,19 +1,34 @@
-<div class="product-catalog">
-    <h2>Catalogue de Produits</h2>
-    <input
-      type="text"
-      placeholder="Rechercher un produit..."
-      [(ngModel)]="searchQuery"
-      (input)="filterProducts()"
-    />
-    <div class="products-grid">
-      <div class="product-card" *ngFor="let product of filteredProducts">
-        <img [src]="product.imageUrl" alt="Image de {{ product.name }}" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p>Catégorie: {{ product.category }}</p>
-        <p>Prix: {{ product.price }} €</p>
+<div class="container mt-4">
+  <h2>Catalogue de Produits</h2>
+  <input
+    type="text"
+    class="form-control mb-4"
+    placeholder="Rechercher un produit..."
+    [(ngModel)]="searchQuery"
+    (input)="filterProducts()"
+  />
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" *ngFor="let product of filteredProducts">
+      <div class="card h-100 shadow-lg">
+        <img
+          [src]="product.imageUrl"
+          class="card-img-top"
+          alt="Image de {{ product.name }}"
+          style="height: 250px; object-fit: cover;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="card-text"><strong>Catégorie:</strong> {{ product.category }}</p>
+          <p class="card-text"><strong>Prix:</strong> {{ product.price }} €</p>
+          <button
+            class="btn btn-primary"
+            (click)="addToCart(product)"
+          >
+            Ajouter au panier
+          </button>
+        </div>
       </div>
     </div>
   </div>
-  
+</div>

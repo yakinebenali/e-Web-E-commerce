@@ -4,17 +4,23 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private isAuthenticated = false;
 
-  login(username: string, password: string): boolean {
-    // Vérification simple des informations d'identification
-    if (username === 'user' && password === 'password') {
-      this.isAuthenticated = true;
-      return true;
+  export class AuthService {
+    private isAuthenticated = false;
+    // Définir des identifiants valides dans le service
+    private validUsername: string = 'yakinebenali5@gmail.com';
+    private validPassword: string = 'yakine'; // Remplacez par le mot de passe de test
+  
+    constructor() { }
+  
+    // Fonction pour vérifier si les identifiants sont corrects
+    login(username: string, password: string): boolean {
+      if (username === this.validUsername && password === this.validPassword) {
+        return true;  // Connexion réussie
+      }
+      return false;  // Identifiants invalides
     }
-    return false;
-  }
+  
 
   isAuthenticatedUser(): boolean {
     return this.isAuthenticated;

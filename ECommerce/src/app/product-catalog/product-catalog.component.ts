@@ -28,8 +28,7 @@ export class ProductCatalogComponent implements OnInit {
         product.category.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {
-      this.filteredProducts = this.products; // Si la recherche est vide, on affiche tous les produits
-    }
+      this.filteredProducts = this.products;}
   }
 
   addToCart(product: Product): void {
