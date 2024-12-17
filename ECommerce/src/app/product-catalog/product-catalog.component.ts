@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product.model';
-import { ProductService } from '../product.service';
-import { CartService } from '../cart.service';
-import { Router } from '@angular/router'; // Importer le Router
+import { ProductService } from '../services/product.service';
+import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-catalog',
@@ -17,28 +17,28 @@ export class ProductCatalogComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private router: Router // Injecter le Router
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
+    // Chargement des produits depuis le service ProductService (pas besoin de subscribe car pas d'appel HTTP)
     this.products = this.productService.getProducts();
     this.filteredProducts = this.products;
   }
 
   filterProducts(): void {
-    if (this.searchQuery) {
+    if (this.searchQuery.trim()) {
       this.filteredProducts = this.products.filter(product =>
         product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        product.category.toLowerCase().includes(this.searchQuery.toLowerCase())
+        product.category.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {
       this.filteredProducts = this.products;
     }
   }
 
-  // Nouvelle méthode pour ajouter au panier et rediriger
-  addToCartAndNavigate(product: Product): void {
-    this.cartService.addToCart(product); // Ajouter le produit au panier
-    this.router.navigate(['/cart']); // Rediriger vers la page du panier
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
   }
 }

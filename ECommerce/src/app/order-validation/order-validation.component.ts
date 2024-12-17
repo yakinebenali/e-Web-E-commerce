@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../cart.service';  // Service panier
-import { OrderService } from '../order.service';  // Service des commandes
+import { CartService } from '../services/cart.service';  // Service panier
+import { OrderService } from '../services/order.service';  // Service des commandes
 import { Product } from '../product.model';  // Modèle produit
 import { Order } from '../order.model';  // Modèle de commande
 
@@ -12,7 +12,6 @@ import { Order } from '../order.model';  // Modèle de commande
 export class OrderValidationComponent implements OnInit {
 
   order: Order | null = null;
-  isProcessing: boolean = false;
 
   constructor(private cartService: CartService, private orderService: OrderService) {}
 
@@ -33,7 +32,7 @@ export class OrderValidationComponent implements OnInit {
     this.order = {
       id: new Date().getTime(),  // Utilisation d'un ID temporaire pour la commande
       customerName: "yakine", // Exemple de nom du client, vous pouvez le personnaliser
-      customerEmail: "yakinebenali5@gmail.com", // Exemple d'email
+      customerEmail: "yakinebenali5@gmail.com", 
       date: new Date().toISOString(),
       items: cartItems.map(item => ({
         productName: item.product.name,
@@ -41,30 +40,13 @@ export class OrderValidationComponent implements OnInit {
         price: item.product.price
       })),
       total: this.cartService.getTotal(),
-      status: 'en attente'  // Statut initial de la commande
+      status: 'en attente' ,
+    
     };
 
     // Vous pouvez ajouter cette commande à la liste des commandes
     this.orderService.addOrder(this.order);
   }
 
-  // Valider la commande
-  validateOrder(): void {
-    if (!this.order) {
-      alert("Aucune commande disponible à valider.");
-      return;
-    }
-
-    this.isProcessing = true;
-
-    setTimeout(() => {
-      // Mise à jour du statut de la commande
-      this.order!.status = 'validée';  // Statut mis à jour
-      this.orderService.updateOrder(this.order!);
-
-      this.isProcessing = false;
-      alert('Commande validée avec succès!');
-      this.cartService.clearCart();  // Vider le panier après la validation
-    }, 2000);  // Simule un délai de validation
-  }
+  // Ici, nous ne mettons plus à jour le statut du client. Il est seulement consulté.
 }
