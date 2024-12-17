@@ -1,0 +1,38 @@
+<div class="container mt-4">
+    <h2 class="text-center">Liste des Commandes</h2>
+  
+    <!-- Affichage des commandes -->
+    <div *ngIf="orders.length === 0" class="alert alert-warning">
+      Aucune commande disponible.
+    </div>
+  
+    <div *ngFor="let order of orders" class="card shadow-lg mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Résumé de la Commande #{{ order.id }}</h5>
+  
+        <p><strong>Nom du client :</strong> {{ order.customerName }}</p>
+        <p><strong>Email :</strong> {{ order.customerEmail }}</p>
+        <p><strong>Date de commande :</strong> {{ order.date }}</p>
+  
+        <h6>Articles :</h6>
+        <ul>
+          <li *ngFor="let item of order.items">
+            {{ item.productName }} - {{ item.quantity }} x {{ item.price }} €
+          </li>
+        </ul>
+  
+        <p><strong>Total :</strong> {{ order.total }} €</p>
+        <p><strong>Status actuel :</strong> <span>{{ order.status }}</span></p>
+  
+        <!-- Bouton pour valider la commande -->
+        <button 
+          class="btn btn-success" 
+          (click)="validateOrder(order)" 
+          [disabled]="isProcessing">
+          <span *ngIf="isProcessing">Traitement...</span>
+          <span *ngIf="!isProcessing">Valider la commande</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
