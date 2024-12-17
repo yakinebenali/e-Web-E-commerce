@@ -1,15 +1,22 @@
-<div class="login-container">
-  <h2>Connexion Client</h2>
-  <form (submit)="onLogin(); $event.preventDefault()">
-    <div>
-      <label for="username">Nom d'utilisateur:</label>
-      <input id="username" [(ngModel)]="username" name="username" type="text" required />
-    </div>
-    <div>
-      <label for="password">Mot de passe:</label>
-      <input id="password" [(ngModel)]="password" name="password" type="password" required />
-    </div>
-    <button type="submit">Se connecter</button>
-  </form>
-  <p *ngIf="errorMessage" style="color:red">{{ errorMessage }}</p>
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+
+  <div class="image-container w-100" style="height: 100%; position: absolute; top: 0; left: 0;">
+    <img src="assets/images/R.jpg" alt="Parfum" class="parfum-image w-100 h-100" />
+  </div>
+
+  <div class="login-container p-4 bg-white shadow-lg rounded-3 mx-auto" style="max-width: 400px; width: 100%; z-index: 10;">
+    <h2 class="text-center mb-4">Connexion Client</h2>
+    <form (submit)="onLogin(); $event.preventDefault()">
+      <div class="mb-3">
+        <label for="username" class="form-label">Nom d'utilisateur:</label>
+        <input id="username" [(ngModel)]="username" name="username" type="text" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe:</label>
+        <input id="password" [(ngModel)]="password" name="password" type="password" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+    </form>
+    <p *ngIf="errorMessage" class="text-danger mt-3">{{ errorMessage }}</p>
+  </div>
 </div>

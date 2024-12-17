@@ -13,9 +13,8 @@ export class AdminLoginComponent {
   constructor(private router: Router) {}
 
   login(): void {
-    // Ici, tu vérifies les identifiants (c'est un exemple simple)
+
     if (this.username === 'admin' && this.password === 'admin') {
-      // Si la connexion est réussie, rediriger vers le tableau de bord
       this.router.navigate(['/admin/dashboard']);
     } else {
       alert('Identifiants incorrects');
