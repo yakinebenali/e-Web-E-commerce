@@ -1,0 +1,60 @@
+<h2>Gestion des Produits</h2>
+
+<!-- Ajouter un produit -->
+<div class="product-form-container">
+  <h3>Ajouter un produit</h3>
+  <form class="product-form" (ngSubmit)="addProduct()">
+    <input [(ngModel)]="newProduct.name" name="name" placeholder="Nom du produit" class="input-field" required />
+    <input [(ngModel)]="newProduct.description" name="description" placeholder="Description" class="input-field" required />
+    <input [(ngModel)]="newProduct.price" name="price" placeholder="Prix" type="number" class="input-field" required />
+    <input [(ngModel)]="newProduct.category" name="category" placeholder="Catégorie" class="input-field" required />
+    <input [(ngModel)]="newProduct.imageUrl" name="imageUrl" placeholder="URL de l'image" class="input-field" required />
+    <button type="submit" class="btn add-btn">Ajouter</button>
+  </form>
+</div>
+
+<!-- Liste des produits -->
+<div class="product-list">
+  <h3>Liste des produits</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Prix</th>
+        <th>Catégorie</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td><img [src]="product.imageUrl" class="product-image" alt="Image de {{ product.name }}" /></td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }} €</td>
+        <td>{{ product.category }}</td>
+        <td>
+          <button (click)="editProduct(product)" class="btn edit-btn">Modifier</button>
+          <button (click)="deleteProduct(product.id)" class="btn delete-btn">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Formulaire de modification -->
+<div *ngIf="editingProduct" class="edit-form-container">
+  <h3>Modifier le produit</h3>
+  <form class="product-form" (ngSubmit)="saveEdit()">
+    <input [(ngModel)]="editingProduct.name" name="name" placeholder="Nom du produit" class="input-field" required />
+    <input [(ngModel)]="editingProduct.description" name="description" placeholder="Description" class="input-field" required />
+    <input [(ngModel)]="editingProduct.price" name="price" placeholder="Prix" type="number" class="input-field" required />
+    <input [(ngModel)]="editingProduct.category" name="category" placeholder="Catégorie" class="input-field" required />
+    <input [(ngModel)]="editingProduct.imageUrl" name="imageUrl" placeholder="URL de l'image" class="input-field" required />
+    <div class="form-actions">
+      <button type="submit" class="btn save-btn">Enregistrer</button>
+      <button (click)="cancelEdit()" type="button" class="btn cancel-btn">Annuler</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,132 @@
+/* Style général */
+h2, h3 {
+    color: #2c3e50;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  h3 {
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  
+  /* Conteneur de formulaire d'ajout */
+  .product-form-container {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .product-form {
+    display: grid;
+    gap: 15px;
+  }
+  
+  .input-field {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 1em;
+  }
+  
+  .input-field:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-btn {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .add-btn:hover {
+    background-color: #27ae60;
+  }
+  
+  .edit-btn {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #e67e22;
+  }
+  
+  .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .save-btn {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .save-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .cancel-btn {
+    background-color: #95a5a6;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #7f8c8d;
+  }
+  
+  /* Tableau de produits */
+  .product-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .product-list th, .product-list td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .product-list th {
+    background-color: #34495e;
+    color: white;
+  }
+  
+  .product-list tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Formulaire de modification */
+  .edit-form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 20px;
+  }
+  .product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
