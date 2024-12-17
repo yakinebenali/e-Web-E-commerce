@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <h2 class="text-center">Liste des Commandes</h2>
   
-    <!-- Affichage des commandes -->
+  
     <div *ngIf="orders.length === 0" class="alert alert-warning">
       Aucune commande disponible.
     </div>
@@ -24,7 +24,6 @@
         <p><strong>Total :</strong> {{ order.total }} €</p>
         <p><strong>Status actuel :</strong> <span>{{ order.status }}</span></p>
   
-        <!-- Bouton pour valider la commande -->
         <button 
           class="btn btn-success" 
           (click)="validateOrder(order)" 

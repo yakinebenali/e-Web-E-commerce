@@ -15,37 +15,34 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadCart();  // Charger les données du panier lors de l'initialisation du composant
-  }
+    this.loadCart();   }
 
   loadCart(): void {
-    this.cartItems = this.cartService.getCart();  // Récupérer les articles du panier à partir du service
-    this.total = this.cartService.getTotal();  // Récupérer le total du panier à partir du service
+    this.cartItems = this.cartService.getCart();  
+    this.total = this.cartService.getTotal(); 
   }
 
   updateQuantity(product: Product, quantity: number): void {
     if (quantity > 0) {
-      this.cartService.updateQuantity(product, quantity);  // Mettre à jour la quantité du produit dans le panier
-      this.loadCart();  // Recharger le panier avec les nouvelles quantités
+      this.cartService.updateQuantity(product, quantity); 
+      this.loadCart();
     } else {
-      alert('La quantité doit être supérieure à zéro.');  // Alerte si la quantité est inférieure ou égale à zéro
-    }
+      alert('La quantité doit être supérieure à zéro.');     }
   }
 
   removeFromCart(product: Product): void {
-    this.cartService.removeFromCart(product);  // Supprimer l'article du panier
-    this.loadCart();  // Recharger le panier après la suppression
+    this.cartService.removeFromCart(product); 
+    this.loadCart();  
   }
 
   isEmpty(): boolean {
-    return this.cartService.isEmpty();  // Vérifier si le panier est vide
+    return this.cartService.isEmpty(); 
   }
 
-  // Fonction pour valider la commande et rediriger vers la page de validation de la commande
+ 
   validateOrder(): void {
     if (this.cartItems.length > 0) {
-      this.router.navigate(['/validate-order']);  // Rediriger vers la page de validation de la commande
-    } else {
+      this.router.navigate(['/validate-order']);     } else {
       alert('Votre panier est vide. Vous devez ajouter des articles pour valider la commande.');
     }
   }

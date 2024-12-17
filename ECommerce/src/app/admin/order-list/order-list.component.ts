@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../services/order.service';  // Service des commandes
+import { OrderService } from '../../services/order.service';  
 import { Order } from '../../order.model';
 
 @Component({
@@ -9,23 +9,21 @@ import { Order } from '../../order.model';
 })
 export class OrderListComponent implements OnInit {
 
-  orders: Order[] = [];  // Pour stocker toutes les commandes
-  isProcessing: boolean = false;  // Pour gérer le traitement
+  orders: Order[] = [];
+  isProcessing: boolean = false; 
 
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.getOrders();  // Charger toutes les commandes à l'initialisation
+    this.getOrders();  
   }
 
-  // Récupérer toutes les commandes
   getOrders(): void {
     this.orderService.getOrders().subscribe((orders: Order[]) => {
-      this.orders = orders;  // Stocker les commandes dans la variable 'orders'
+      this.orders = orders; 
     });
   }
 
-  // Valider une commande spécifique
   validateOrder(order: Order): void {
     if (!order) {
       alert("Aucune commande disponible à valider.");
@@ -35,12 +33,12 @@ export class OrderListComponent implements OnInit {
     this.isProcessing = true;
 
     setTimeout(() => {
-      // Mise à jour du statut de la commande
-      order.status = 'validée';  // Statut mis à jour
+     
+      order.status = 'validée';
       this.orderService.updateOrder(order);
 
       this.isProcessing = false;
       alert('Commande validée avec succès!');
-    }, 2000);  // Simule un délai de validation
+    }, 2000);  
   }
 }

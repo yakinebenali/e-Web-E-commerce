@@ -19,19 +19,17 @@ export class OrderValidationComponent implements OnInit {
     this.createOrderFromCart();
   }
 
-  // Créer une commande à partir des produits dans le panier
   createOrderFromCart(): void {
-    const cartItems = this.cartService.getCart(); // Récupérer les produits du panier
+    const cartItems = this.cartService.getCart();
 
     if (cartItems.length === 0) {
       alert("Votre panier est vide.");
       return;
     }
 
-    // Créer une nouvelle commande avec les produits du panier
-    this.order = {
-      id: new Date().getTime(),  // Utilisation d'un ID temporaire pour la commande
-      customerName: "yakine", // Exemple de nom du client, vous pouvez le personnaliser
+  this.order = {
+      id: new Date().getTime(),
+      customerName: "yakine",
       customerEmail: "yakinebenali5@gmail.com", 
       date: new Date().toISOString(),
       items: cartItems.map(item => ({
@@ -44,9 +42,6 @@ export class OrderValidationComponent implements OnInit {
     
     };
 
-    // Vous pouvez ajouter cette commande à la liste des commandes
-    this.orderService.addOrder(this.order);
+ this.orderService.addOrder(this.order);
   }
-
-  // Ici, nous ne mettons plus à jour le statut du client. Il est seulement consulté.
 }

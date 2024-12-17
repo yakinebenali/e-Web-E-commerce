@@ -21,8 +21,7 @@ export class ProductCatalogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Chargement des produits depuis le service ProductService (pas besoin de subscribe car pas d'appel HTTP)
-    this.products = this.productService.getProducts();
+this.products = this.productService.getProducts();
     this.filteredProducts = this.products;
   }
 

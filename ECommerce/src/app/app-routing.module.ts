@@ -14,14 +14,14 @@ import { ProductListComponent } from './admin/product-list/product-list.componen
 import { OrderListComponent } from './admin/order-list/order-list.component';
 
 const routes: Routes = [
-  // Routes pour le client
+
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'auth', component: ClientAuthComponent },
   { path: 'product-catalog', component: ProductCatalogComponent }, 
   { path: 'cart', component: CartComponent }, 
   { path: 'validate-order', component: OrderValidationComponent }, 
 
-  // Routes pour l'admin
+
   { path: 'admin', component: AdminLoginComponent },
    { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent },

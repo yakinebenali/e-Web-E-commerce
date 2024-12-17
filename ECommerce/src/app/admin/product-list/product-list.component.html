@@ -1,6 +1,5 @@
 <h2>Gestion des Produits</h2>
 
-<!-- Ajouter un produit -->
 <div class="product-form-container">
   <h3>Ajouter un produit</h3>
   <form class="product-form" (ngSubmit)="addProduct()">
@@ -13,7 +12,6 @@
   </form>
 </div>
 
-<!-- Liste des produits -->
 <div class="product-list">
   <h3>Liste des produits</h3>
   <table>
@@ -43,7 +41,6 @@
   </table>
 </div>
 
-<!-- Formulaire de modification -->
 <div *ngIf="editingProduct" class="edit-form-container">
   <h3>Modifier le produit</h3>
   <form class="product-form" (ngSubmit)="saveEdit()">
